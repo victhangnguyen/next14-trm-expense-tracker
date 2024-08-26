@@ -23,3 +23,22 @@ model User {
   updatedAt    DateTime      @updatedAt
   transactions Transaction[]
 }
+
+model Transaction {
+  id        String   @id @default(uuid())
+  text      String
+  amount    Float
+  // Relation to user
+  userId    String
+  user      User     @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+// Trong Prisma, bạn sử dụng từ khóa @relation để định nghĩa quan hệ giữa các mô hình, ví dụ: user User @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade).
+
+// Trong Mongoose, bạn sử dụng ref để định nghĩa quan hệ giữa các mô hình, ví dụ:
+// const transactionSchema = new mongoose.Schema({
+//   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+// });
+
