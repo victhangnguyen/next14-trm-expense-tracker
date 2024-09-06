@@ -1,11 +1,21 @@
 "use client";
 
+import addTransaction from "@/app/actions/addTransaction";
+
 interface AddTransactionProps {}
 
 const AddTransaction = (props: AddTransactionProps) => {
   const clientAction = async (formData: FormData) => {
-    console.log(formData.get("text"), formData.get("amount"));
+    const { data, error } = await addTransaction(formData);
+
+    if (error) {
+      alert(error);
+    } else {
+      alert("Transaction Added");
+      console.log("components/AddTransaction.tsx->data: ", data, "\n");
+    }
   };
+
   return (
     <>
       <h3>AddTransaction</h3>

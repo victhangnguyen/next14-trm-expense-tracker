@@ -19,5 +19,3 @@ export default async function Home() {
     </main>
   );
 }
-// <main className={styles.main}>
-// </main>
