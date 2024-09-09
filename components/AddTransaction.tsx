@@ -1,5 +1,8 @@
 "use client";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+//! Actions
 import addTransaction from "@/app/actions/addTransaction";
 
 interface AddTransactionProps {}
@@ -9,9 +12,9 @@ const AddTransaction = (props: AddTransactionProps) => {
     const { data, error } = await addTransaction(formData);
 
     if (error) {
-      alert(error);
+      toast.error(error);
     } else {
-      alert("Transaction Added");
+      toast.success("Transaction Added");
       console.log("components/AddTransaction.tsx->data: ", data, "\n");
     }
   };

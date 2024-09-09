@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 
+
 interface TransactionData {
   text: string;
   amount: number;
