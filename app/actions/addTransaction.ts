@@ -1,6 +1,8 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
+import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 
 interface TransactionData {
@@ -32,9 +34,28 @@ async function addTransaction(formData: FormData): Promise<TransactionResult> {
     return { error: "User not found" };
   }
 
+  //! Add transaction to database
+  try {
+    await db.transaction.create({
+      data: {
+        text,
+        amount,
+        userId,
+      },
+    });
+  } catch (error) {
+    return { error: "Transaction not added" };
+  }
+
+  //! Revalidate the path
+  revalidatePath("/");
+
+  //! Return the transaction data
   const transactionData: TransactionData = { text, amount };
 
   return { data: transactionData };
 }
 
 export default addTransaction;
+
+//! viết lệnh chuyern chữ thường thành chữ hoa
