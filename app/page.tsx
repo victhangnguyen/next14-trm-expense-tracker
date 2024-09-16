@@ -4,6 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 //! comps
 import Guest from "@/components/Guest";
 import AddTransaction from "@/components/AddTransaction";
+import Balance from "@/components/Balance";
 
 export default async function Home() {
   const user = await currentUser();
@@ -14,7 +15,8 @@ export default async function Home() {
 
   return (
     <main>
-      <h1>Welcome, {user.firstName}</h1>
+      <h2>Welcome, {user.firstName}</h2>
+      <Balance />
       <AddTransaction />
     </main>
   );
