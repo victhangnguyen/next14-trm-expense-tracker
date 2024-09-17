@@ -1,12 +1,14 @@
-import React, { FC } from "react";
+import { FC } from "react";
+import getUserBalance from "@/app/actions/getUserBalance";
 
 interface BalanceProps {}
 
-const Balance: FC<BalanceProps> = (BalanceProps) => {
+const Balance: FC<BalanceProps> = async (BalanceProps) => {
+  const { balance } = await getUserBalance();
   return (
     <>
       <h4>Balance</h4>
-      <h1>$500</h1>
+      <h1>${balance}</h1>
     </>
   );
 };
