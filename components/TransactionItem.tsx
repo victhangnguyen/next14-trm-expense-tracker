@@ -1,3 +1,8 @@
+"use client";
+
+//! Actions
+import deleteTransaction from "@/app/actions/deleteTransaction";
+//! Comps
 import { Transaction } from "@/types/Transaction";
 import { formatPriceWithCommas } from "@/lib/utils";
 import { toast } from "react-toastify";
@@ -16,26 +21,27 @@ const TransactionItem = ({ transaction }: TransactionItemProps) => {
 
     if (!confirmed) return;
 
-    try {
-      await deleteTransaction(transactionId);
+    const { message, error } = await deleteTransaction(transactionId);
 
-      toast.success("Transaction deleted");
-    } catch (error) {
-      toast.error("Error deleting transaction");
+    if (error) {
+      toast.error(error);
       console.log(error);
     }
+
+    toast.success(message);
   };
   return (
     <li className={transaction.amount < 0 ? "minus" : "plus"}>
       {transaction.text}
       <span>
-        {sign}
-        {formatPriceWithCommas(Math.abs(transaction.amount))}
+        {sign}${formatPriceWithCommas(Math.abs(transaction.amount))}
       </span>
       <button
         onClick={() => handleDeleteTransaction(transaction.id)}
         className="delete-btn"
-      ></button>
+      >
+        x
+      </button>
     </li>
   );
 };
