@@ -1,4 +1,5 @@
 import getIncomeExpense from "@/app/actions/getIncomeExpense";
+import { formatNumberWithCommas } from "@/lib/utils";
 
 interface IncomeExpenseProps {}
 
@@ -8,11 +9,15 @@ const IncomeExpense = async (props: IncomeExpenseProps) => {
     <div className="income-expense-container">
       <div>
         <h4>Income</h4>
-        <p className="money plus">${income}</p>
+        <p className="money plus">
+          ${formatNumberWithCommas(Number(income?.toFixed(2)))}
+        </p>
       </div>
       <div>
         <h4>Expense</h4>
-        <p className="money minus">${expense}</p>
+        <p className="money minus">
+          ${formatNumberWithCommas(Number(expense?.toFixed(2)))}
+        </p>
       </div>
     </div>
   );

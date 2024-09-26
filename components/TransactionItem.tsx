@@ -4,7 +4,7 @@
 import deleteTransaction from "@/app/actions/deleteTransaction";
 //! Comps
 import { Transaction } from "@/types/Transaction";
-import { formatPriceWithCommas } from "@/lib/utils";
+import { formatNumberWithCommas } from "@/lib/utils";
 import { toast } from "react-toastify";
 
 interface TransactionItemProps {
@@ -34,7 +34,7 @@ const TransactionItem = ({ transaction }: TransactionItemProps) => {
     <li className={transaction.amount < 0 ? "minus" : "plus"}>
       {transaction.text}
       <span>
-        {sign}${formatPriceWithCommas(Math.abs(transaction.amount))}
+        {sign}${formatNumberWithCommas(Math.abs(transaction.amount))}
       </span>
       <button
         onClick={() => handleDeleteTransaction(transaction.id)}
